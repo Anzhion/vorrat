@@ -1,1 +1,444 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg: #f4f5f2;
+  --surface: #ffffff;
+  --line: #e2e4de;
+  --text: #1d211c;
+  --muted: #6b7168;
+  --accent: #2f7d4f;
+  --accent-soft: #e3f1e8;
+  --danger: #c2412d;
+  --danger-soft: #fbe9e5;
+  --optional: #8a8f86;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141613;
+    --surface: #1e211d;
+    --line: #2e322c;
+    --text: #e8ebe5;
+    --muted: #9aa196;
+    --accent: #6cc48f;
+    --accent-soft: #22392a;
+    --danger: #ef7a66;
+    --danger-soft: #3a2420;
+    --optional: #7d8479;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.35 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+.button {
+  font: inherit;
+  color: inherit;
+}
+
+header.bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 -16px;
+  padding: 14px 16px 10px;
+  background: var(--bg);
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+}
+
+.count {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+h2 {
+  margin: 20px 4px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &.plain {
+    width: 100%;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  &.optional .name,
+  &.optional .qty {
+    color: var(--optional);
+  }
+
+  &.done .name {
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  &.missing .amount {
+    background: var(--danger-soft);
+    color: var(--danger);
+  }
+
+  &.inactive .name {
+    color: var(--muted);
+  }
+}
+
+.grow {
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.name {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 13px;
+}
+
+.center {
+  text-align: center;
+}
+
+.pad {
+  padding: 12px;
+}
+
+.error {
+  color: var(--danger);
+}
+
+.empty {
+  margin: 48px 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+.qty {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.tag {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.check {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+
+  &.on {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--surface);
+    font-weight: 700;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--surface);
+  }
+
+  .dot {
+    min-width: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    background: var(--danger);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+nav.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 0 -16px;
+  padding: 4px 16px 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 4px;
+
+  button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+    font-size: 20px;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.35;
+    }
+  }
+
+  .amount,
+  span {
+    width: 44px;
+    border-color: transparent;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  span {
+    display: inline-block;
+    line-height: 40px;
+    border-radius: 10px;
+  }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+
+  input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+  }
+}
+
+input[type='search'],
+.form input:not([type='checkbox']),
+.form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.search {
+  margin-bottom: 10px;
+}
+
+.add input[type='search'] {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+}
+
+input.inline {
+  width: 100%;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  font-weight: 500;
+
+  &.num {
+    width: 48px;
+    text-align: center;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+
+  label:not(.switch) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--muted);
+
+    input,
+    select {
+      color: var(--text);
+      font-size: 16px;
+    }
+  }
+
+  .pair {
+    display: flex;
+    gap: 12px;
+
+    label {
+      flex: 1;
+    }
+  }
+}
+
+.ghost,
+.icon {
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--muted);
+
+  &:disabled {
+    opacity: 0.3;
+  }
+}
+
+.add-row {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.primary,
+.danger,
+.button {
+  display: block;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+
+.primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--surface);
+}
+
+.danger {
+  border-color: var(--danger);
+  background: none;
+  color: var(--danger);
+}
+
+.wide {
+  width: 100%;
+  margin-top: 10px;
+}
+
+section .primary.wide {
+  margin-top: 16px;
+}
+
+button:disabled {
+  cursor: default;
+}
